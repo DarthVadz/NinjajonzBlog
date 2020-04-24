@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<link th:replace="fragments/headLinks">
+<title>Add Comment</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+		<h2>New Comment</h2>
+		</br>
+		<div th:if="!${successMessage}">
+			<form th:action="@{/comment}" th:object="${article}"
+				method="post" autocomplete="off">
+				<div class="form-group">
+					<label for="exampleFormControlInput1">Comment</label> <input
+						type="text" class="form-control" id="exampleFormControlInput1"
+						placeholder="Comment">
+				</div>
+				
+				<div class="form-group">
+					<button class="btn btn-primary btn-lg btn-block"
+						name="Submit" type="Submit">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div th:if="${successMessage}">
+			<h3>
+				<span class="text-success" th:utext="${successMessage}"></span>
+			</h3>
+		</div>
+
+	</div>
+	<footer th:replace="fragments/footer"></footer>
+	<script th:replace="fragments/scripts"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<link th:replace="fragments/headLinks">
+<title>NinjajonzBlog</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+		
+		<div class="card">
+			<div class="row">
+				<div class="col col-md-6 offset-md-3">
+					</br>
+					<h2 class="text-center">Get Your Local Forecast</h2>
+					<form th:action="@{/forcast}" th:object="${request}" method="post"
+						autocomplete="off">
+						<div class="form-group">
+							<input type="text" th:field="*{zipCode}" placeholder="Zip Code"
+								class="form-control" />
+						</div>
+						<div class="form-group">
+							<button class="btn btn-md btn-primary btn-block" name="Submit"
+								value="Submit" type="Submit">Check Weather</button>
+						</div>
+					</form>
+					<div th:if="${data != null && data.name != 'error'}">
+						<h3>Forecast for <span th:text="${data.name}"></span></h3>
+						<p><b>Temperature:</b> <span th:text="${data.main.get('temp')}"></span>*F</p>
+						<p><b>Feels like:</b> <span th:text="${data.main.get('feels_like')}"></span>*F</p>
+						<p><b>Cloud Cover:</b> <span th:text="${data.clouds.get('all')}"></span>%</p>
+						<p><b>Wind:</b> <span th:text="${data.wind.get('speed')}"></span>mph</p>
+						<p><b>Conditions:</b> <span
+								th:text="${data.weather[0].get('description')}"></span> <img
+								th:src="@{${'https://openweathermap.org/img/w/' + data.weather[0].get('icon') + '.png'}}">
+						</p>
+						<a th:href="@{/}" class="btn btn-md btn-warning btn-block">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h1 class="text-center">Blog</h1>
+		<div th:object="${articleList}">
+			<div class="container">
+				<div th:if="${not #lists.isEmpty(articleList)}">
+					<div class="card" th:each="article:${articleList}"
+						style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${article.title}"></h5>
+							<p class="card-text" th:text="${article.getPreview(article.message)}"></p>
+							<a href="@{/showArticle/} + ${article.article_id}" class="card-link">Read full article</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer"></footer>
+	<script th:replace="fragments/scripts"></script>
+</body>
+</html>
