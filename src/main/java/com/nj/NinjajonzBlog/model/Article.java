@@ -34,8 +34,6 @@ public class Article {
 	@Length(max=1500, message="Your message cannot exceed 1500 characters")
 	private String message;
 	
-	private String preview;
-	
 	@CreationTimestamp
 	private Date createdAt;
 	
@@ -50,7 +48,6 @@ public class Article {
 		this.author = author;
 		this.title = title;
 		this.message = message;
-		this.preview = preview;
 		this.createdAt = createdAt;
 	}
 
@@ -83,16 +80,13 @@ public class Article {
 	}
 
 	public String getPreview(String message) {
-		if(message.length() > 5) {
+		String preview;
+		if(message.length() > 30) {
 			preview = message;
 		} else {
 			preview = (message.substring(0, 30));
 		}
 		return preview;
-	}
-
-	public void setPreview(String preview) {
-		this.preview = preview;
 	}
 
 	public Date getCreatedAt() {

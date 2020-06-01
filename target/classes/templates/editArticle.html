@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<link th:replace="fragments/headLinks">
+<title>Your Title Here</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<div th:replace="fragments/navbar"></div>
+
+		<form>
+			<div class="form-group">
+				<label for="exampleFormControlInput1">Email address</label> <input
+					type="email" class="form-control" id="exampleFormControlInput1"
+					placeholder="Title">
+			</div>
+
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Article</label>
+				<textarea class="form-control" id="exampleFormControlTextarea1"
+					rows="3"></textarea>
+			</div>
+
+			<button type="button" action="edit" class="btn btn-primary btn-lg btn-block">Finish Edit</button>
+		</form>
+
+	</div>
+	<footer th:replace="fragments/footer"></footer>
+	<script th:replace="fragments/scripts"></script>
+</body>
+</html>

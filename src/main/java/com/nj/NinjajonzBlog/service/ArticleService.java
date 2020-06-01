@@ -29,12 +29,16 @@ public class ArticleService {
 		return articleRepository.findById(id);
 	}
 	
-	public void makePreview(Article article) {
-		String message = article.getMessage();
-		String preview = new String();
-		preview = message.substring(0, 20);
-		article.setPreview(preview);
-	}
+	// public String makePreview(Article article) {
+	// 	String message = article.getMessage();
+	// 	String preview = new String();
+	// 	if(message.length() > 20) {
+	// 		preview = message.substring(0, 20);
+	// 	} else {
+	// 		preview = message;
+	// 	}
+	// 	return preview;
+	// }
 
 	public List<Comment> getComments() {
 		// TODO Auto-generated method stub

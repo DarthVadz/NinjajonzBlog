@@ -1,6 +1,6 @@
 package com.nj.NinjajonzBlog.controller;
 
-import java.util.List;
+// import java.util.List;
 
 import javax.validation.Valid;
 
@@ -11,10 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.nj.NinjajonzBlog.model.Article;
+// import com.nj.NinjajonzBlog.model.Article;
 import com.nj.NinjajonzBlog.model.User;
-import com.nj.NinjajonzBlog.request.Request;
-import com.nj.NinjajonzBlog.service.ArticleService;
+// import com.nj.NinjajonzBlog.request.Request;
+// import com.nj.NinjajonzBlog.service.ArticleService;
 import com.nj.NinjajonzBlog.service.UserService;
 
 @Controller
@@ -23,8 +23,8 @@ public class AuthorizationController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private ArticleService articleService;
+	//@Autowired
+	// private ArticleService articleService;
 
 	@GetMapping(value = "/login")
 	public String login() {

@@ -30,9 +30,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private String rolesQuery;
 	
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery).dataSource(dataSource).passwordEncoder(bCryptPasswordEncoder);
-	}
+	protected void configure(AuthenticationManagerBuilder auth)
+		throws Exception {
+			auth.
+					jdbcAuthentication()
+					.usersByUsernameQuery(usersQuery)
+					.authoritiesByUsernameQuery(rolesQuery)
+					.dataSource(dataSource)
+					.passwordEncoder(bCryptPasswordEncoder);	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -41,11 +46,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/").permitAll()
 			.antMatchers("/main").permitAll()
 			.antMatchers("/forcast").permitAll()
+			.antMatchers("/comment").permitAll()
 			.antMatchers("/about").permitAll()
 			.antMatchers("/login").permitAll()
 			.antMatchers("/signup").permitAll()
 			.antMatchers("/newArticle").permitAll()
 			.antMatchers("/showArticle").permitAll()
+			.antMatchers("/showArticle/**").permitAll()
 			.antMatchers("/custom.js").permitAll()
 			.antMatchers("/custom.css").permitAll()
 			.antMatchers().hasAuthority("USER").anyRequest()

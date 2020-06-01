@@ -2,32 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-	<link th:replace="fragments/headLinks">
-	<title>New Article</title>
+<link th:replace="fragments/headLinks">
+<title>Add Comment</title>
 </head>
 <body>
 	<div class="container-fluid">
 		<div th:replace="fragments/navbar"></div>
-		<h2 class="pageTitle">Make New Article</h2>
+		<h2>New Comment</h2>
 		</br>
 		<div th:if="!${successMessage}">
-			<form th:action="@{/newArticle}" th:object="${article}"
+			<form th:action="@{/comment}" th:object="${article}"
 				method="post" autocomplete="off">
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Title</label> <input
-						type="text" th:field="*{title}" class="form-control" id="exampleFormControlInput1"
-						placeholder="Title">
+					<label for="exampleFormControlInput1">Comment</label> <input
+						type="text" class="form-control" id="exampleFormControlInput1"
+						placeholder="Comment">
 				</div>
-
-				<div class="form-group">
-					<label for="exampleFormControlTextarea1">Article</label>
-					<textarea th:field="*{message}" class="form-control" id="exampleFormControlTextarea1"
-						rows="3"></textarea>
-				</div>
-
+				
 				<div class="form-group">
 					<button class="btn btn-primary btn-lg btn-block"
-						name="Submit" value="Submit" type="Submit">Submit</button>
+						name="Submit" type="Submit">Submit</button>
 				</div>
 			</form>
 		</div>

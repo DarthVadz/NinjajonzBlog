@@ -1,7 +1,6 @@
 package com.nj.NinjajonzBlog.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -9,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,12 +34,12 @@ public class MainController {
 	@Autowired
 	private WeatherService weatherService;
 	
-	@GetMapping("/")
+	@GetMapping({"/main", "/"})
 	private String main(Model model) {
 		List<Article> articleList = articleService.findAll();
-		for(Article article : articleList) {
-			articleService.makePreview(article);
-		}
+		// for(Article article : articleList) {
+		// 	articleService.makePreview(article);
+		// }
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("request", new Request());
 		return "main";
@@ -57,22 +57,28 @@ public class MainController {
 	}
 	
 	@GetMapping("/showArticle/{article_id}")
-	private String getArticle(@PathVariable Long id, Model model) {
-		Optional<Article> article = articleService.findById(id);
+	private String getArticle(@PathVariable(value = "article_id") Long id, Model model) {
+		//Optional<Article> article = articleService.findById(id);
+		articleService.findById(id).ifPresent(article -> model.addAttribute("article", article));
+		//model.addAttribute("article", article);
+
 		List<Comment> comments = articleService.getComments();
-		model.addAttribute("article", article);
 		model.addAttribute("comments", comments);
 		return "showArticle";
 	}
 	
 	@PostMapping("/newArticle")
-	private String submitArticleForm(@Valid Article article, Model model) {
+	private String submitArticleForm(@Valid Article article, BindingResult bindingResult, Model model) {
 		User user = userService.getLoggedInUser();
-		article.setAuthor(user);
-		model.addAttribute("successMessage", "Tweet successfully created!");
-		model.addAttribute("article", new Article());
-		articleService.saveNewArticle(article);
-		return "showArticle";
+		if(!bindingResult.hasErrors()) {
+			article.setAuthor(user);
+			articleService.saveNewArticle(article);
+			model.addAttribute("successMessage", "Article successfully created!");
+			model.addAttribute("article", article);
+		} else {
+			model.addAttribute("failureMessage", "Article submission failed.");
+		}
+		return "newArticle";
 	}
 	
 	@PostMapping("/comment")

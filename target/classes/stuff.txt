@@ -1,0 +1,11 @@
+user profiles
+user logins/signups        later edit user profile (twitter)
+article model, service, controller, repo
+comments model, repo, controller?
+associations comments/articles/users
+base html
+htmls for main feed, article, edit css?
+pagination
+tags
+link shortening
+check forms for user
